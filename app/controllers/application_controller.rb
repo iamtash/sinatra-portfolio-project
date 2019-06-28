@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
         inputs.any? {|input| input==""}
     end
 
-    def login(email, password)
+    def login(email:, password:)
         user = User.find_by(email: email)
         if user && user.authenticate(password)
           session[:user_id] = user.id
