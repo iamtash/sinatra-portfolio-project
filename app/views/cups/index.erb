@@ -2,7 +2,7 @@
 
 <ul>
 <% @cups.each do |cup|%>
-    <li><%= @user.name %> had a cup of <%= cup.coffee %> on <%= cup.created_at %>.</li>
+    <li><%= cup.user.name %> had a cup of <%= cup.coffee.name %> on <%= cup.created_at %>.</li>
 <% end %>
 </ul>
 
