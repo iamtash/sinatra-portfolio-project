@@ -1,5 +1,34 @@
-
+<h1>Sip a Cup</h1>
 
 <form action="/cups" method="POST">
+
+  <label>Brew (drip, cold brew, latte...)</label>
+  <br>
+  <input type="text" name="cup[brew]" id="brew">
+
+  <br><br>
+
+  <label>Coffee Name</label>
+  <br>
+  <input type="text" name="coffee[name]" id="coffee_name">
+
+  <br><br>
+
+  <label>Coffee Roast:</label>
+  <br>
+  <% @roasts.each do |roast| %>
+    <input type="radio" name="coffee[roast]" id="coffee_roast" value="<%=roast%>"><%=roast%></input>
+  <% end %>
+
+  <br><br>
+
+  <label>Select the Coffee Roaster:</label>
+  <br>
+  <% @roasters.each do |roaster| %>
+    <input type="radio" name="roaster" id="roaster" value="<%=roaster.id%>"><%=roaster.name%></input>
+  <% end %>
+
+  <br><br>
+  <input type="submit">
 
 </form>
