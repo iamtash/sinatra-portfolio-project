@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
   get "/" do
     if logged_in?
       redirect '/cups'
-    else 
+    else
       erb :'/users/signup'
     end
   end
@@ -32,7 +32,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find_by(id: session[:user_id]) if session[:user_id]
+      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
     end
 
     def logged_in?
