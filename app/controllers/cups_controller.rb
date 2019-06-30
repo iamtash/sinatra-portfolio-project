@@ -21,7 +21,7 @@ class CupsController < ApplicationController
 
     post '/cups' do
         coffee = Coffee.find_or_create_by(params[:coffee])
-        binding.pry
+        #binding.pry
         cup = coffee.cups.create(params[:cup])
 
     end
