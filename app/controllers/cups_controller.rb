@@ -20,9 +20,15 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        coffee = Coffee.find_or_create_by(params[:coffee])
-        #binding.pry
-        cup = coffee.cups.create(params[:cup])
+        @coffee = Coffee.find_or_create_by(params[:coffee])
 
+        if params[:roaster][:name] != ""
+            @coffee.roaster = Roaster.create(params[:roaster])
+        end
+        
+        @cup = @coffee.cups.create(params[:cup])
+        @cup.update(user: current_user)
+
+        erb :'cups/show'
     end
 end

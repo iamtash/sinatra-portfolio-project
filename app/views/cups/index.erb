@@ -1,9 +1,9 @@
-<%# user.name had a cup of coffee.name at timestamp!%>
-
 <ul>
 <% @cups.each do |cup|%>
     <li><%= cup.user.name %> had a cup of <%= cup.coffee.name %> on <%= cup.created_at %>.</li>
 <% end %>
 </ul>
 
-<a href='/logout'>Log out</a>
+<a href='/cups/new'>Sip a New Cup</a> 
+<br><br>
+ <a href='/logout'>Log out</a>
