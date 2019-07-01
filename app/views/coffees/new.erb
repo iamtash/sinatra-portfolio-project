@@ -1,0 +1,39 @@
+<h1>Post a Coffee</h1>
+
+<form action="/coffees" method="POST">
+
+<label>Coffee Name</label>
+  <br>
+  <input type="text" name="coffee[name]" id="coffee_name">
+
+  <br><br>
+
+  <label>Roast:</label>
+  <br>
+  <% @roasts.each do |roast| %>
+    <input type="radio" name="coffee[roast]" id="coffee_roast" value="<%=roast%>"><%=roast%></input>
+  <% end %>
+
+  <br><br>
+
+  <label>Select the Coffee Roaster:</label>
+  <br>
+  <% @roasters.each do |roaster| %>
+    <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>"><%=roaster.name%></input>
+  <% end %>
+
+  <br><br>
+
+  ...or post a new Roaster:
+
+  <input type="text" name="roaster[name]" id="roaster">
+
+  <br><br>
+
+  <input type="submit">
+
+</form>
+
+<a href="/coffees">Back to Coffees</a>
+<br> 
+<a href="/logout">Log out</a>
