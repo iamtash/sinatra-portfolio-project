@@ -23,7 +23,7 @@ class CupsController < ApplicationController
         @coffee = Coffee.find_or_create_by(params[:coffee])
 
         if params[:roaster][:name] != ""
-            @coffee.roaster = Roaster.create(params[:roaster])
+            @coffee.roaster = Roaster.find_or_create_by(params[:roaster])
         end
         
         @cup = @coffee.cups.create(params[:cup])
