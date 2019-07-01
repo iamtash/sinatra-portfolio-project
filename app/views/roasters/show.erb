@@ -1,0 +1,12 @@
+<h1><%= @roaster.name %></h1> 
+
+Their coffee beans:
+<ul>
+<% @roaster.coffees.each do |coffee| %>
+    <li><%= coffee.name %> // <%= coffee.roast %></li>
+<% end %>
+</ul>
+
+<a href="/roasters">Back to Roasters List</a>
+<br> 
+<a href="/logout">Log out</a>

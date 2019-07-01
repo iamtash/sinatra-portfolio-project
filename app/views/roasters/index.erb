@@ -1,0 +1,13 @@
+Roaster Index 
+
+<ul>
+<% @roasters.each do |roaster|%>
+    <li><a href="/roasters/<%= roaster.slug %>"><%= roaster.name %></a></li>
+<% end %>
+</ul>
+
+<br>
+
+<a href="/roasters/new">Post another Roaster</a>
+<br> 
+<a href="/logout">Log out</a>
