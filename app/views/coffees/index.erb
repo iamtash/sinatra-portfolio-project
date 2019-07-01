@@ -1,0 +1,13 @@
+<h1>Coffee Index</h1>
+
+<br>
+
+<ul>
+<% @coffees.each do |coffee| %>
+    <li><a href="/coffees/<%= coffee.slug %>"><%= coffee.name %></a></li>
+<% end %>
+</ul>
+
+<a href='/coffees/new'>Post a new Coffee</a>
+<br>
+<a href='/logout'>Log out</a>
