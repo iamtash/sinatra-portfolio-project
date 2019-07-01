@@ -1,0 +1,15 @@
+<h1><%= @coffee.name %></h1>
+
+<h2><a href="/roasters/<%= @coffee.roaster.slug %>"><%= @coffee.roaster.name %></a></h2>
+
+<h4><%= @coffee.name %> Feed:</h4>
+
+<ul>
+<% @coffee.cups.each do |cup| %>
+    <li><%= cup.user.name %> had a <%= cup.brew %> on <%= cup.sip_time %>.</li>
+<% end %>
+</ul>
+
+<a href="/coffees">Back to Coffees</a>
+<br> 
+<a href='/logout'>Log out</a>
