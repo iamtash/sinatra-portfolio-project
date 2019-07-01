@@ -1,9 +1,13 @@
+<h1>Coffee Cups Sipped</h1>
+
 <ul>
 <% @cups.each do |cup|%>
-    <li><%= cup.user.name %> had a cup of <%= cup.coffee.name %> on <%= cup.created_at %>.</li>
+    <li><%= cup.user.name %> had a cup of <a href="/coffees/<%= cup.coffee.slug %>"><%= cup.coffee.name %></a> on <%= cup.sip_time %>.</li>
 <% end %>
 </ul>
 
-<a href='/cups/new'>Sip a New Cup</a> 
+<a href='/cups/new'>Sip another Cup</a> 
 <br><br>
  <a href='/logout'>Log out</a>
+
+ 
