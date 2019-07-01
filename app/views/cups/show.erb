@@ -1,3 +1,11 @@
 <%= @cup.user.name %> enjoyed a <%= @cup.brew %> on <%= @cup.created_at %>.
 <br>
 The coffee was brewed with <%= @cup.coffee.name %> beans from <%= @cup.coffee.roaster.name %>.
+
+<br><br>
+
+<a href='/cups/<%= @cup.id %>/edit'>Edit this cup</a>
+<br>
+<a href='/cups'>Home</a>
+<br> 
+<a href='/users/logout'>Log out</a>
