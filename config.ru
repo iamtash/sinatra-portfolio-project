@@ -7,4 +7,6 @@ end
 use Rack::MethodOverride
 use UsersController
 use CupsController
+use CoffeesController 
+use RoastersController
 run ApplicationController
