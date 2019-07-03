@@ -20,14 +20,18 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        @coffee = Coffee.find_or_create_by(params[:coffee])
-
-        if params[:roaster][:name] != ""
-            @coffee.roaster = Roaster.find_or_create_by(params[:roaster])
+        coffee = Coffee.find_or_create_by(params[:coffee])
+        
+        if params[:roaster][:name] != "" && !coffee.persisted?
+            roaster = Roaster.find_or_create_by(params[:roaster])
+            @coffee = roaster.coffees.build(params[:coffee])
+        else
+            @coffee = coffee
         end
         
-        @cup = @coffee.cups.create(params[:cup])
-        @cup.update(user: current_user)
+        @cup = @coffee.cups.build(params[:cup])
+        @cup.user = current_user 
+        @cup.save
 
         erb :'cups/show'
     end
@@ -51,14 +55,35 @@ class CupsController < ApplicationController
 
         @cup.update(params[:cup])
 
-        @coffee = Coffee.find_or_create_by(params[:coffee])
-
-        if params[:roaster][:name] != ""
-            @coffee.roaster = Roaster.create(params[:roaster])
+        coffee = Coffee.find_or_create_by(params[:coffee])
+        binding.pry
+        if params[:roaster][:name] != "" && !coffee.persisted?
+            roaster = Roaster.find_or_create_by(params[:roaster])
+            @coffee = roaster.coffees.build(params[:coffee])
+        else
+            @coffee = coffee
         end
 
         @cup.update(coffee: @coffee)
 
         erb :'cups/show'
+    end
+
+    get '/cups/:id' do 
+        if logged_in?
+            if @cup = Cup.find_by(id: params[:id])
+                erb :'/cups/show'
+            else
+                redirect '/cups'
+            end
+        else
+            redirect '/login'
+        end
+    end
+
+    delete '/cups/:id' do
+        cup = Cup.find_by(id: params[:id])
+        cup.destroy 
+        redirect '/cups'
     end
 end
