@@ -1,0 +1,13 @@
+<h1>Cups you've sipped</h1>
+
+<ul>
+<% @user.cups.each do |cup| %>
+    <li><a href="/roasters/<%= cup.coffee.roaster.slug %>"><%= cup.coffee.roaster.name %></a> <a href="/coffees/<%= cup.coffee.roaster.slug %>/<%= cup.coffee.slug %>"><%= cup.coffee.name %></a> <a href="/cups/<%= cup.id %>"><%= cup.brew %></a> on <%= cup.sip_date %></li>
+<% end %>
+</ul>
+
+ <form action="/cups/new" method="GET">
+    <input type="submit" id="new_cup" value="SIP A CUP">
+ </form>
+
+ <a href='/cups'>Home</a> | <a href='/logout'>Log out</a>
