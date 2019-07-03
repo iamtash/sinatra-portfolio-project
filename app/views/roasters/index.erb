@@ -1,13 +1,13 @@
-Roaster Index 
+<h1>Coffee Roasters</h1>
 
 <ul>
-<% @roasters.each do |roaster|%>
+<% @roasters.sort_by{|roaster| roaster.name}.each do |roaster|%>
     <li><a href="/roasters/<%= roaster.slug %>"><%= roaster.name %></a></li>
 <% end %>
 </ul>
 
-<br>
+<form action="/roasters/new" method="GET"> 
+    <input type="submit" id="new_roaster" value="NEW ROASTER">
+</form>
 
-<a href="/roasters/new">Post another Roaster</a>
-<br> 
-<a href="/logout">Log out</a>
+<a href="/cups">Home</a> | <a href="/logout">Log out</a>
