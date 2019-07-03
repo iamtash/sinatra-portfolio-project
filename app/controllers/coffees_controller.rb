@@ -19,18 +19,25 @@ class CoffeesController < ApplicationController
     end
 
     post '/coffees' do 
-        @coffee = Coffee.find_or_create_by(params[:coffee])
-
-        if params[:roaster][:name] != ""
-            @coffee.update(roaster: Roaster.find_or_create_by(params[:roaster]))
+        coffee = Coffee.find_or_create_by(params[:coffee])
+        
+        if params[:roaster][:name] != "" && !coffee.persisted?
+            roaster = Roaster.find_or_create_by(params[:roaster])
+            @coffee = roaster.coffees.build(params[:coffee])
+        else
+            @coffee = coffee
         end
+
+        @coffee.save
 
         redirect "/coffees/#{@coffee.slug}"
     end
 
-    get '/coffees/:slug' do 
+    get '/coffees/:roasters/:slug' do 
         if logged_in?
-            @coffee = Coffee.find_by_slug(params[:slug])
+            @roaster = Roaster.find_by_slug(params[:roasters])
+            @coffee = @roaster.coffees.find_by_slug(params[:slug])
+            
             erb :'/coffees/show'
         else
             redirect '/login'
