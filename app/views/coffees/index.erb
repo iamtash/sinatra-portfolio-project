@@ -1,13 +1,15 @@
 <h1>Coffee Index</h1>
 
-<br>
-
-<ul>
-<% @coffees.each do |coffee| %>
-    <li><a href="/coffees/<%= coffee.slug %>"><%= coffee.name %></a></li>
+<table>
+<% @coffees.sort_by {|coffee| coffee.name}.each do |coffee| %>
+    <tr><td><a href="/coffees/<%= coffee.roaster.slug %>/<%= coffee.slug %>"><%= coffee.name %></a></td><td>// <a href="/roasters/<%= coffee.roaster.slug %>"><em><%= coffee.roaster.name %></em></a></td></tr>
 <% end %>
-</ul>
+</table>
 
-<a href='/coffees/new'>Post a new Coffee</a>
 <br>
-<a href='/logout'>Log out</a>
+
+<form action="/coffees/new" method="GET"> 
+    <input type="submit" id="new_coffee" value="NEW COFFEE">
+</form>
+
+<a href='/cups'>Home</a> | <a href='/logout'>Log out</a>
