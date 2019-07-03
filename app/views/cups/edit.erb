@@ -28,21 +28,12 @@
   <br>
   <% @roasters.each do |roaster| %>
     <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>" <%= 'checked' if @cup.coffee.roaster==roaster %>><%=roaster.name%><br></input>
-  <% end %>
-
-  <br>
-
-  ...or post a new Roaster:
-
-  <input type="text" name="roaster[name]" id="roaster">
+  <% end %><input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=nil%>">...or post a new Roaster: <input type="text" name="roaster[name]" id="roaster"></input>
 
   <br><br>
-
 
   <input type="submit">
 
 </form>
 
-<a href="/cups">Back to cup feed</a>
-<br> 
-<a href="/logout">Log out</a>
+<a href="/cups">Home</a> | <a href="/logout">Log out</a>
