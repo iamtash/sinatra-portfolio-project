@@ -1,11 +1,18 @@
-<%= @cup.user.name %> enjoyed a <%= @cup.brew %> on <%= @cup.created_at %>.
+<%= @cup.user.name %> enjoyed a <%= @cup.brew %> on <%= @cup.sip_time %>.
 <br>
-The coffee was brewed with <%= @cup.coffee.name %> beans from <%= @cup.coffee.roaster.name %>.
+The coffee was brewed with <a href="/coffees/<%= @cup.coffee.roaster.slug %>/<%= @cup.coffee.slug %>"><%= @cup.coffee.name %></a> beans from <a href="/roasters/<%= @cup.coffee.roaster.slug %>"><%= @cup.coffee.roaster.name %></a>.
 
 <br><br>
 
-<a href='/cups/<%= @cup.id %>/edit'>Edit this cup</a>
+<% if @cup.user == current_user %>
+    <form action="/cups/<%= @cup.id %>/edit" method="GET">
+        <input type="submit" id="edit_cup" value="Edit">
+    </form>
+
+    <form action="/cups/<%= @cup.id %>" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" id="delete_cup" value="Delete">
+    </form>
+<% end %>
 <br>
-<a href='/cups'>Home</a>
-<br> 
-<a href='/users/logout'>Log out</a>
+<a href='/cups'>Home</a> | <a href='/users/logout'>Log out</a>
