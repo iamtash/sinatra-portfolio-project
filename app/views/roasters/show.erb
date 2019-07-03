@@ -3,10 +3,10 @@
 Their coffee beans:
 <ul>
 <% @roaster.coffees.each do |coffee| %>
-    <li><%= coffee.name %> // <%= coffee.roast %></li>
+    <li><a href="/coffees/<%= coffee.roaster.slug %>/<%= coffee.slug %>"><%= coffee.name %></a> // <%= coffee.roast %> roast</li>
 <% end %>
 </ul>
 
-<a href="/roasters">Back to Roasters List</a>
-<br> 
-<a href="/logout">Log out</a>
+<a href="/roasters">Coffee Roasters</a>
+<br><br>
+<a href="/cups">Home</a> | <a href="/logout">Log out</a>
