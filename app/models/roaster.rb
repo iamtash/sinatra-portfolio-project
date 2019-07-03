@@ -1,7 +1,7 @@
 class Roaster < ActiveRecord::Base
     has_many :coffees
 
-    validates :name, uniqueness: { case_sensitive: false }
+    validates :name, presence: true, uniqueness: { case_sensitive: false } 
 
     def slug
         self.name.downcase.strip.gsub(' ', '-').gsub('&', 'and').gsub(/[^\w-]/, '')
