@@ -2,14 +2,16 @@
 
 <h2><a href="/roasters/<%= @coffee.roaster.slug %>"><%= @coffee.roaster.name %></a></h2>
 
+<h3><%= @coffee.roast.capitalize %> roast</h3>
+
 <h4><%= @coffee.name %> Feed:</h4>
 
 <ul>
 <% @coffee.cups.each do |cup| %>
-    <li><%= cup.user.name %> had a <%= cup.brew %> on <%= cup.sip_time %>.</li>
+    <li><%= cup.user.name %> had a <a href="/cups/<%= cup.id %>"><%= cup.brew %></a> on <%= cup.sip_date %>.</li>
 <% end %>
 </ul>
 
-<a href="/coffees">Back to Coffees</a>
-<br> 
-<a href='/logout'>Log out</a>
+<a href="/coffees">Coffee Selection</a>
+<br><br>
+<a href='/cups'>Home</a> | <a href='/logout'>Log out</a>
