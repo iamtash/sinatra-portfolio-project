@@ -1,4 +1,4 @@
-<%= @cup.user.name %> enjoyed a <%= @cup.brew %> on <%= @cup.sip_time %>.
+<%= @cup.user.name %> enjoyed <%= @cup.a_or_an %> <%= @cup.brew %> on <%= @cup.sip_time %>.
 <br>
 The coffee was brewed with <a href="/coffees/<%= @cup.coffee.roaster.slug %>/<%= @cup.coffee.slug %>"><%= @cup.coffee.name %></a> beans from <a href="/roasters/<%= @cup.coffee.roaster.slug %>"><%= @cup.coffee.roaster.name %></a>.
 
