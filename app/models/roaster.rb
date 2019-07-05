@@ -5,9 +5,13 @@ class Roaster < ActiveRecord::Base
 
     def slug
         self.name.downcase.strip.gsub(' ', '-').gsub('&', 'and').gsub(/[^\w-]/, '')
-      end
+    end
     
-      def self.find_by_slug(slug)
+    def self.find_by_slug(slug)
         self.all.find {|roaster| roaster.slug == slug}
-      end
+    end
+
+    def pretty_name
+        self.name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
+    end
 end

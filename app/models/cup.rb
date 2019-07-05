@@ -12,4 +12,8 @@ class Cup < ActiveRecord::Base
         self.created_at.strftime("%A, %B %-d, %Y")
     end
 
+    def a_or_an
+        brew.start_with?(/[aeiou]/) ? 'an' : 'a'
+    end
+
 end
