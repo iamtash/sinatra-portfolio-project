@@ -4,6 +4,7 @@ class Coffee < ActiveRecord::Base
     has_many :users, through: :cups
 
     validates :name, :roast, :roaster, presence: true
+    validate :coffees_with_same_name_cant_belong_to_same_roaster
 
     ROASTS = ['light', 'medium', 'dark']
 
@@ -17,5 +18,17 @@ class Coffee < ActiveRecord::Base
   
     def self.find_by_slug(slug)
       self.all.find {|coffee| coffee.slug == slug}
+    end
+
+    def coffees_with_same_name_cant_belong_to_same_roaster
+      # if there is a duplicate coffee name, only allow it to save if ROASTER names are unique
+      # e.g. multiple coffee roasters can produce a 'french roast' coffee
+      if self.class.find_by(name: self.name) && Roaster.find_by(name: self.roaster.name)
+        errors.add(:roaster, "can't have duplicate coffees from same roaster")
+      end
+    end
+
+    def pretty_name
+      self.name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
     end
 end
