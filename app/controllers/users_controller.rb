@@ -3,49 +3,49 @@ class UsersController < ApplicationController
    get '/login' do
         if logged_in?
             redirect '/cups'
-        else 
+        else
             erb :'/users/login'
-        end    
+        end
    end
 
-   post '/login' do 
+   post '/login' do
         login(email: params[:email], password: params[:password])
         redirect '/cups'
    end
 
-   get '/signup' do 
+   get '/signup' do
         if logged_in?
             redirect '/cups'
-        else 
+        else
             erb :'/users/signup'
-        end    
+        end
    end
-    
+
     post '/signup' do
         if empty_fields?(params)
             redirect '/signup'
-        else 
+        else
             user = User.create(params)
-            login(user.email, user.password)
-        
+            login(email: user.email, password: user.password)
+
             redirect '/cups'
         end
     end
 
-    get '/logout' do 
-        if logged_in? 
+    get '/logout' do
+        if logged_in?
             erb :'/users/logout'
-        else   
+        else
             redirect '/login'
-        end 
+        end
     end
 
-    post '/logout' do 
-        session.clear 
+    post '/logout' do
+        session.clear
         redirect '/login'
     end
 
-    get '/users/:slug' do 
+    get '/users/:slug' do
         if logged_in?
             @user = User.find_by_slug(params[:slug])
             erb :'/users/show'
