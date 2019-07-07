@@ -4,7 +4,8 @@
 
 <ul>
 <% @cups.each do |cup|%>
-    <li><%= cup.user.name %> had a <a href="/cups/<%= cup.id %>">cup</a> of <a href="/coffees/<%= cup.coffee.roaster.slug %>/<%= cup.coffee.slug %>"><%= cup.coffee.pretty_name %></a> on <%= cup.sip_date %>.</li>
+  <% binding.pry %>
+  <li><%= cup.user.name %> had a <a href="/cups/<%= cup.id %>">cup</a> of <a href="/coffees/<%= cup.coffee.roaster.slug %>/<%= cup.coffee.slug %>"><%= cup.coffee.pretty_name %></a> on <%= cup.sip_date %>.</li>
 <% end %>
 </ul>
 

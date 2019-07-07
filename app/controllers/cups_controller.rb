@@ -20,9 +20,9 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        coffee = Coffee.find_or_create_by(params[:coffee])
-        
-        if params[:roaster][:name] != "" && !coffee.persisted?
+        coffee = Coffee.new(params[:coffee])
+
+        if params[:roaster][:name] != ""
             roaster = Roaster.find_or_create_by(params[:roaster])
             @coffee = roaster.coffees.build(params[:coffee])
         else
@@ -30,14 +30,14 @@ class CupsController < ApplicationController
         end
         
         @cup = @coffee.cups.build(params[:cup])
-        @cup.user = current_user 
+        @cup.user = current_user
         @cup.save
 
         erb :'cups/show'
     end
 
     get '/cups/:id/edit' do
-        if logged_in? 
+        if logged_in?
             if @cup = Cup.find_by(id: params[:id])
                 @roasts = Coffee.roasts
                 @roasters = Roaster.all
@@ -69,7 +69,7 @@ class CupsController < ApplicationController
         erb :'cups/show'
     end
 
-    get '/cups/:id' do 
+    get '/cups/:id' do
         if logged_in?
             if @cup = Cup.find_by(id: params[:id])
                 erb :'/cups/show'
@@ -83,7 +83,7 @@ class CupsController < ApplicationController
 
     delete '/cups/:id' do
         cup = Cup.find_by(id: params[:id])
-        cup.destroy 
+        cup.destroy
         redirect '/cups'
     end
 end

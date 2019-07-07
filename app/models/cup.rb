@@ -1,10 +1,11 @@
 class Cup < ActiveRecord::Base
-    belongs_to :user 
+    belongs_to :user
     belongs_to :coffee
 
     validates :brew, :coffee, :user, presence: true
+    validates_associated :coffee
 
-    def sip_time 
+    def sip_time
         self.created_at.strftime("%A, %B %-d, %Y at %l:%M%P UTC")
     end
 

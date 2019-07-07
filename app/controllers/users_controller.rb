@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         else
             user = User.create(params)
             login(email: user.email, password: user.password)
-
+            binding.pry
             redirect '/cups'
         end
     end
