@@ -1,11 +1,14 @@
+<% if flash[:account_created] %>
+    <%= flash[:account_created] %>
+<% end %>
+
 <h1>Coffee Cups</h1>
 <h3>Welcome, <%= current_user.name %>!</h3>
 <h4><a href="/users/<%= current_user.slug %>">You've sipped</a> <%= current_user.cups.size %> cups.</h4>
 
 <ul>
 <% @cups.each do |cup|%>
-  <% binding.pry %>
-  <li><%= cup.user.name %> had a <a href="/cups/<%= cup.id %>">cup</a> of <a href="/coffees/<%= cup.coffee.roaster.slug %>/<%= cup.coffee.slug %>"><%= cup.coffee.pretty_name %></a> on <%= cup.sip_date %>.</li>
+  <li><%= cup.user.name %> had a <a href="/cups/<%= cup.id %>">cup</a> of <a href="/coffees/<%= cup.coffee.roaster.slug %>/<%= cup.coffee.slug %>"><%= cup.coffee.name %></a> on <%= cup.sip_date %>.</li>
 <% end %>
 </ul>
 
