@@ -1,7 +1,7 @@
 class Roaster < ActiveRecord::Base
     has_many :coffees
-
-    validates :name, presence: true, uniqueness: { case_sensitive: false } 
+    before_validation :normalize_name
+    validates :name, presence: true#, uniqueness: { case_sensitive: false } 
 
     def slug
         self.name.downcase.strip.gsub(' ', '-').gsub('&', 'and').gsub(/[^\w-]/, '')
@@ -11,7 +11,8 @@ class Roaster < ActiveRecord::Base
         self.all.find {|roaster| roaster.slug == slug}
     end
 
-    def pretty_name
-        self.name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
-    end
+    private
+        def normalize_name
+            self.name = name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
+        end
 end

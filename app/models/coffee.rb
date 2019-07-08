@@ -2,9 +2,9 @@ class Coffee < ActiveRecord::Base
     belongs_to :roaster
     has_many :cups
     has_many :users, through: :cups
-
+    before_validation :normalize_name
     validates :name, :roast, :roaster, presence: true
-    validates_associated :roaster
+    #validates_associated :roaster
     #validate :coffees_with_same_name_cant_belong_to_same_roaster
 
     ROASTS = ['light', 'medium', 'dark']
@@ -31,7 +31,8 @@ class Coffee < ActiveRecord::Base
     #   end
     # end
 
-    def pretty_name
-      self.name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
-    end
+    private
+      def normalize_name
+        self.name = name.split(' ').map {|w| w.downcase.capitalize}.join(' ')
+      end
 end

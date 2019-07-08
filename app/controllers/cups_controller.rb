@@ -20,19 +20,30 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        coffee = Coffee.new(params[:coffee])
-
-        if params[:roaster][:name] != ""
-            roaster = Roaster.find_or_create_by(params[:roaster])
-            @coffee = roaster.coffees.build(params[:coffee])
+        if params[:coffee][:name] == ""
+            redirect "/cups/new"
+        end
+        if params[:roaster][:name] == ""
+            if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
+                redirect "/cups/new"
+            end
+            @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
         else
-            @coffee = coffee
+            roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+            if roaster.persisted?
+                if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                else
+                    @coffee = roaster.coffees.build(params[:coffee]) 
+                end
+            else
+                @coffee = roaster.coffees.build(params[:coffee])
+            end 
         end
         
         @cup = @coffee.cups.build(params[:cup])
         @cup.user = current_user
         @cup.save
-
+        
         erb :'cups/show'
     end
 
@@ -55,13 +66,18 @@ class CupsController < ApplicationController
 
         @cup.update(params[:cup])
 
-        coffee = Coffee.find_or_create_by(params[:coffee])
-        binding.pry
-        if params[:roaster][:name] != "" && !coffee.persisted?
-            roaster = Roaster.find_or_create_by(params[:roaster])
-            @coffee = roaster.coffees.build(params[:coffee])
+        if params[:roaster][:name] == ""
+            @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
         else
-            @coffee = coffee
+            roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+            if roaster.persisted?
+                if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                else
+                    @coffee = roaster.coffees.build(params[:coffee]) 
+                end
+            else
+                @coffee = roaster.coffees.build(params[:coffee])
+            end 
         end
 
         @cup.update(coffee: @coffee)
@@ -86,4 +102,5 @@ class CupsController < ApplicationController
         cup.destroy
         redirect '/cups'
     end
+
 end

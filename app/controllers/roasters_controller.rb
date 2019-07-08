@@ -17,7 +17,13 @@ class RoastersController < ApplicationController
     end
 
     post '/roasters' do
-        
+        if !empty_fields?(params)
+            @roaster = Roaster.find_or_initialize_by(name: normalize(params[:name]))
+            @roaster.save
+            erb :'/roasters/show'
+        else
+            redirect '/roasters/new'
+        end
     end
 
     get '/roasters/:slug' do 
