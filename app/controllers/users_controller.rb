@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationController  
 
    get '/login' do
         if logged_in?
@@ -9,8 +9,14 @@ class UsersController < ApplicationController
    end
 
    post '/login' do
+    if empty_fields?(params)
+        flash[:login_error] = "Please fill in all fields."
+        redirect '/login'
+    else
         login(email: params[:email], password: params[:password])
         redirect '/cups'
+    end
+    
    end
 
    get '/signup' do
@@ -23,11 +29,12 @@ class UsersController < ApplicationController
 
     post '/signup' do
         if empty_fields?(params)
+            flash[:signup_error] = "Please fill in all fields."
             redirect '/signup'
         else
             user = User.create(params)
             login(email: user.email, password: user.password)
-            binding.pry
+            flash[:account_created] = "You successfully created an account!"
             redirect '/cups'
         end
     end
