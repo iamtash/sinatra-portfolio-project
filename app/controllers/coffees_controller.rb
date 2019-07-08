@@ -19,23 +19,35 @@ class CoffeesController < ApplicationController
     end
 
     post '/coffees' do 
-        coffee = Coffee.find_or_create_by(params[:coffee])
-        
-        if params[:roaster][:name] != "" && !coffee.persisted?
-            roaster = Roaster.find_or_create_by(params[:roaster])
-            @coffee = roaster.coffees.build(params[:coffee])
+        if params[:coffee][:name] == ""
+            redirect "/coffees/new"
+        end
+
+        if params[:roaster][:name] == ""
+            if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
+                redirect "/coffees/new"
+            end
+            @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
         else
-            @coffee = coffee
+            roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+            if roaster.persisted?
+                if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                else
+                    @coffee = roaster.coffees.build(params[:coffee]) 
+                end
+            else
+                @coffee = roaster.coffees.build(params[:coffee])
+            end 
         end
 
         @coffee.save
 
-        redirect "/coffees/#{@coffee.slug}"
+        redirect "/coffees/#{@coffee.roaster.slug}/#{@coffee.slug}"
     end
 
-    get '/coffees/:roasters/:slug' do 
+    get '/coffees/:roaster/:slug' do 
         if logged_in?
-            @roaster = Roaster.find_by_slug(params[:roasters])
+            @roaster = Roaster.find_by_slug(params[:roaster])
             @coffee = @roaster.coffees.find_by_slug(params[:slug])
             
             erb :'/coffees/show'
