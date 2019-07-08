@@ -1,6 +1,8 @@
 require './config/environment'
+require 'sinatra/flash'
 
 class ApplicationController < Sinatra::Base
+  register Sinatra::Flash
 
   configure do
     set :public_folder, 'public'
@@ -18,8 +20,8 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    def empty_fields?(inputs)
-        inputs.any? {|input| input==""}
+    def empty_fields?(params)
+        params.any? {|k,v| v==""}
     end
 
     def login(email:, password:)
@@ -37,6 +39,10 @@ class ApplicationController < Sinatra::Base
 
     def logged_in?
       !!current_user
+    end
+
+    def normalize(param)
+        param.split(' ').map {|w| w.downcase.capitalize}.join(' ')
     end
 end
 
