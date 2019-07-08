@@ -1,8 +1,10 @@
+<% if flash[:signup_error] %>
+    <%= flash[:signup_error] %>
+<% end %>
+
 <h1>Welcome to Coffee Cups!</h1>
 
-<h2>Please create an account.</h2> 
-
-<br><br>
+<h3>Please create an account.</h3> 
 
 <form action="/signup" method="POST">
 
