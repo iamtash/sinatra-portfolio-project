@@ -1,18 +1,25 @@
+starbucks = Roaster.new(name: 'Starbucks')
+peets = Roaster.new(name: 'Peets Coffee')
+philz = Roaster.new(name: 'Philz Coffee')
+
+pike_place = Coffee.new(name: 'Pike Place', roast: 'medium', roaster: starbucks)
+big_bang = Coffee.new(name: 'Big Bang', roast: 'medium', roaster: peets)
+silken_splendor = Coffee.new(name: 'Silken Splendor', roast: 'medium', roaster: philz)
+
 natasha = User.create(name: 'Natasha', email: 'natasha@email.com', password: 'pass1')
 brian = User.create(name: 'Brian', email: 'brian@email.com', password: 'pass2')
 jessica = User.create(name: 'Jessica', email: 'jessica@email.com', password: 'pass3')
 
-starbucks = Roaster.create(name: 'Starbucks')
-peets = Roaster.create(name: 'Peets Coffee')
-philz = Roaster.create(name: 'Philz Coffee')
+cup1 = natasha.cups.build(brew: 'cold brew', coffee: silken_splendor)
+cup2 = brian.cups.build(brew: 'iced latte', coffee: pike_place)
+cup3 = jessica.cups.build(brew: 'drip', coffee: big_bang)
+cup4 = natasha.cups.build(brew: 'cold brew', coffee: big_bang)
+cup5 = brian.cups.build(brew: 'iced coffee', coffee: pike_place)
+cup6 = jessica.cups.build(brew: 'drip', coffee: pike_place)
 
-pike_place = Coffee.create(name: 'Pike Place', roast: 'medium', roaster: starbucks)
-big_bang = Coffee.create(name: 'Big Bang', roast: 'medium', roaster: peets)
-silken_splendor = Coffee.create(name: 'Silken Splendor', roast: 'medium', roaster: philz)
-
-natasha.cups.create(brew: 'cold brew', coffee: silken_splendor)
-brian.cups.create(brew: 'iced latte', coffee: pike_place)
-jessica.cups.create(brew: 'drip', coffee: big_bang)
-natasha.cups.create(brew: 'cold brew', coffee: big_bang)
-brian.cups.create(brew: 'iced coffee', coffee: pike_place)
-jessica.cups.create(brew: 'drip', coffee: pike_place)
+cup1.save
+cup2.save
+cup3.save
+cup4.save
+cup5.save
+cup6.save
