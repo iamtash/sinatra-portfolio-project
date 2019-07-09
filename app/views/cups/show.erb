@@ -1,8 +1,12 @@
+<% if flash[:message] %>
+    <%= flash[:message] %>
+<% end %>
+
+<p>
 <%= @cup.user.name %> enjoyed <%= @cup.a_or_an %> <%= @cup.brew %> on <%= @cup.sip_time %>.
 <br>
 The coffee was brewed with <a href="/coffees/<%= @cup.coffee.roaster.slug %>/<%= @cup.coffee.slug %>"><%= @cup.coffee.name %></a> beans from <a href="/roasters/<%= @cup.coffee.roaster.slug %>"><%= @cup.coffee.roaster.name %></a>.
-
-<br><br>
+</p>
 
 <% if @cup.user == current_user %>
     <form action="/cups/<%= @cup.id %>/edit" method="GET">
