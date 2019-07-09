@@ -1,11 +1,23 @@
+<% if flash[:message] %>
+    <%= flash[:message] %>
+<% end %>
+
 <h1><%= @roaster.name %></h1> 
 
 Their coffee beans:
-<ul>
-<% @roaster.coffees.each do |coffee| %>
-    <li><a href="/coffees/<%= coffee.roaster.slug %>/<%= coffee.slug %>"><%= coffee.name %></a> // <%= coffee.roast %> roast</li>
+<table>
+<% @roaster.coffees.sort_by{|coffee| coffee.name}.each do |coffee| %>
+    <tr><td><a href="/coffees/<%= coffee.roaster.slug %>/<%= coffee.slug %>"><%= coffee.name %></a></td><td> // <i><%= coffee.roast %> roast</i></td></tr>
 <% end %>
-</ul>
+</table>
+
+<br>
+
+<form action="/roasters/<%= @roaster.slug %>/edit" method="/get">
+    <input type="submit" value="ADD A COFFEE">
+</form>
+
+<br>
 
 <a href="/roasters">Coffee Roasters</a>
 <br><br>
