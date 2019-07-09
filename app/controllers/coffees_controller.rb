@@ -11,18 +11,14 @@ class CoffeesController < ApplicationController
     get '/coffees/new' do 
         if logged_in?
             @roasts = Coffee.roasts
-            @roasters = Roaster.all
+            @roasters = Roaster.all 
             erb :'/coffees/new'
         else
             redirect '/login'
         end
     end
 
-    post '/coffees' do 
-        if params[:coffee][:name] == ""
-            redirect "/coffees/new"
-        end
-
+    post '/coffees' do
         if params[:roaster][:name] == ""
             if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
                 redirect "/coffees/new"
@@ -41,7 +37,7 @@ class CoffeesController < ApplicationController
         end
 
         @coffee.save
-
+        flash[:message] = "You successfully posted a new Coffee!"
         redirect "/coffees/#{@coffee.roaster.slug}/#{@coffee.slug}"
     end
 
