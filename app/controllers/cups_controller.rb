@@ -20,11 +20,8 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        if params[:coffee][:name] == ""
-            redirect "/cups/new"
-        end
         if params[:roaster][:name] == ""
-            if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
+            if !params[:coffee][:roaster_id]
                 redirect "/cups/new"
             end
             @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
@@ -43,8 +40,8 @@ class CupsController < ApplicationController
         @cup = @coffee.cups.build(params[:cup])
         @cup.user = current_user
         @cup.save
-        
-        erb :'cups/show'
+        flash[:message] = "Your cup has been posted!"
+        redirect "/cups/#{@cup.id}"
     end
 
     get '/cups/:id/edit' do
@@ -64,6 +61,10 @@ class CupsController < ApplicationController
     patch '/cups/:id' do
         @cup = Cup.find_by(id: params[:id])
 
+        if params[:cup][:brew]=="" || params[:coffee][:name]==""
+            redirect "/cups/#{@cup.id}/edit"
+        end
+
         @cup.update(params[:cup])
 
         if params[:roaster][:name] == ""
@@ -81,8 +82,8 @@ class CupsController < ApplicationController
         end
 
         @cup.update(coffee: @coffee)
-
-        erb :'cups/show'
+        flash[:message] = "Your cup has been updated!"
+        redirect "/cups/#{@cup.id}"
     end
 
     get '/cups/:id' do
@@ -100,6 +101,7 @@ class CupsController < ApplicationController
     delete '/cups/:id' do
         cup = Cup.find_by(id: params[:id])
         cup.destroy
+        flash[:message] = "Your cup has been deleted!"
         redirect '/cups'
     end
 
