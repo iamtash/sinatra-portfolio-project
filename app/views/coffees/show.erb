@@ -1,8 +1,12 @@
+<% if flash[:message] %>
+    <%= flash[:message] %>
+<% end %>
+
 <h1><%= @coffee.name %></h1>
 
 <h2><a href="/roasters/<%= @coffee.roaster.slug %>"><%= @coffee.roaster.name %></a></h2>
 
-<h3><%= @coffee.roast.capitalize %> roast</h3>
+<h3><i><%= @coffee.roast.capitalize %> roast</h3></i>
 
 <h4><%= @coffee.name %> Feed:</h4>
 
