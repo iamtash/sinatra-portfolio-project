@@ -4,19 +4,24 @@
 
   <input id="hidden" type="hidden" name="_method" value="patch">
 
-  <label>Brew (drip, cold brew, latte...)</label>
+  <label for="brew">Brew:</label>
   <br>
-  <input type="text" name="cup[brew]" id="brew" value="<%= @cup.brew %>">
+  <select name="cup[brew]" id="brew">
+    <option value="<%= @cup.brew %>" selected><%= @cup.brew.capitalize %></option>
+    <% @brews.each do |brew| %>
+      <option value="<%= brew %>"> <%= brew %> </option>
+    <% end %>
+  </select> 
 
   <br><br>
 
-  <label>Coffee Name</label>
+  <label for="coffee_name">Coffee Name</label>
   <br>
   <input type="text" name="coffee[name]" id="coffee_name" value="<%= @cup.coffee.name %>">
 
   <br><br>
 
-  <label>Roast:</label>
+  <label for="coffee_roast">Roast:</label>
   <br>
   <% @roasts.each do |roast| %>
     <input type="radio" name="coffee[roast]" id="coffee_roast" value="<%=roast%>" <%='checked' if @cup.coffee.roast==roast %>><%=roast%></input>
@@ -24,7 +29,7 @@
 
   <br><br>
 
-  <label>Select the Coffee Roaster:</label>
+  <label for="roaster">Select the Coffee Roaster:</label>
   <br>
   <% @roasters.each do |roaster| %>
     <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>" <%= 'checked' if @cup.coffee.roaster==roaster %>><%=roaster.name%><br></input>

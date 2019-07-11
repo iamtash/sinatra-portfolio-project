@@ -2,19 +2,23 @@
 
 <form action="/cups" method="POST">
 
-  <label>Brew:</label>
+  <label for="brew">Brew:</label>
   <br>
-  <input type="text" name="cup[brew]" id="brew" placeholder="drip, latte, iced..." required />
+  <select name="cup[brew]" id="brew">
+    <% @brews.each do |brew| %>
+      <option value="<%= brew %>"> <%= brew %> </option>
+    <% end %>
+  </select> 
 
-  <br><br>
+<br><br>
 
-  <label>Coffee Name:</label>
+  <label for="coffee_name">Coffee Name:</label>
   <br>
   <input type="text" name="coffee[name]" id="coffee_name" placeholder="House Blend" required />
 
   <br><br>
 
-  <label>Roast:</label>
+  <label for="coffee_roast">Roast:</label>
   <br>
   <% @roasts.each do |roast| %>
     <input type="radio" name="coffee[roast]" id="coffee_roast" value="<%=roast%>" required ><%=roast%></input>
@@ -22,7 +26,7 @@
 
   <br><br>
 
-  <label>Select the Coffee Roaster:</label>
+  <label for="roaster">Select the Coffee Roaster:</label>
   <br>
   <% @roasters.each do |roaster| %>
     <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>"><%=roaster.name%><br></input>

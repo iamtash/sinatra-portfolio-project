@@ -13,6 +13,7 @@ class CupsController < ApplicationController
         if logged_in?
             @roasts = Coffee.roasts
             @roasters = Roaster.all
+            @brews = Cup.brews
             erb :'/cups/new'
         else
             redirect '/login'
@@ -49,6 +50,7 @@ class CupsController < ApplicationController
             if @cup = Cup.find_by(id: params[:id])
                 @roasts = Coffee.roasts
                 @roasters = Roaster.all
+                @brews = Cup.brews - [@cup.brew] 
                 erb :'/cups/edit'
             else
                 redirect '/cups'
