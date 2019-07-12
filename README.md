@@ -27,11 +27,15 @@ Visit specified port in browser
 Contributions
 -------------
 1. Fork the repository
+
 2. Clone the fork
+
 3. Make a git branch
   * Switch to that branch
 4. Install dependencies
+
 5. Make some commits
+
 6. Open a Pull Request
   * Choose branch you were working on
 
