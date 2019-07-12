@@ -22,3 +22,22 @@ shotgun
 ```
 
 Visit specified port in browser
+
+
+Contributions
+-------------
+1. Fork the repository
+2. Clone the fork
+3. Make a git branch
+..* Switch to that branch
+4. Install dependencies
+5. Make some commits
+6. Open a Pull Request
+..* Choose branch you were working on
+
+[Source](https://medium.com/@jenweber/your-first-open-source-contribution-a-step-by-step-technical-guide-d3aca55cc5a6)
+
+
+License
+-------
+The project uses the MIT License. See LICENSE for details.
