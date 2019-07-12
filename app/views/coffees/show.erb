@@ -10,11 +10,15 @@
 
 <h4><%= @coffee.name %> Feed:</h4>
 
-<ul>
-<% @coffee.cups.each do |cup| %>
-    <li><%= cup.user.name %> had <%= cup.a_or_an %> <a href="/cups/<%= cup.id %>"><%= cup.brew %></a> on <%= cup.sip_date %>.</li>
+<% if !@coffee.cups.empty? %>
+    <ul>
+    <% @coffee.cups.each do |cup| %>
+        <li><%= cup.user.name %> had <%= cup.a_or_an %> <a href="/cups/<%= cup.id %>"><%= cup.brew %></a> on <%= cup.sip_date %>.</li>
+    <% end %>
+    </ul>
+<% else %>
+    No cups of <%= @coffee.name %> have been sipped yet!
 <% end %>
-</ul>
 
 <a href="/coffees">Coffee Selection</a>
 <br><br>
