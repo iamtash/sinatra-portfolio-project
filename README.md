@@ -44,4 +44,4 @@ Contributions
 
 License
 -------
-The project uses the MIT License. See LICENSE for details.
+The project uses the MIT [License](./LICENSE)
