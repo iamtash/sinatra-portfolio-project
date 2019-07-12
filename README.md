@@ -10,11 +10,9 @@ Coffee Cups is a tiny Content Management System (CMS) that allows users to, upon
 * View what other users are sippin' on
 
 
-Installation
+Usage
 ------------
-```git
-git clone git@github.com:iamtash/sinatra-portfolio-project.git
-```
+Fork & clone the repository
 ```ruby
 bundle install
 rake db:migrate
