@@ -29,6 +29,7 @@ class ApplicationController < Sinatra::Base
         if user && user.authenticate(password)
           session[:user_id] = user.id
         else
+          flash[:message] = "Login failed. Please enter your email and password to log in."
           redirect '/login'
         end
     end
