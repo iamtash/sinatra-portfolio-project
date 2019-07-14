@@ -21,28 +21,33 @@ class CupsController < ApplicationController
     end
 
     post '/cups' do
-        if params[:roaster][:name] == ""
-            if !params[:coffee][:roaster_id]
-                redirect "/cups/new"
-            end
-            @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
-        else
-            roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
-            if roaster.persisted?
-                if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
-                else
-                    @coffee = roaster.coffees.build(params[:coffee]) 
+        if logged_in?
+            if params[:roaster][:name] == ""
+                if !params[:coffee][:roaster_id]
+                    redirect "/cups/new"
                 end
+                @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
             else
-                @coffee = roaster.coffees.build(params[:coffee])
-            end 
+                roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+                if roaster.persisted?
+                    if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                    else
+                        @coffee = roaster.coffees.build(params[:coffee]) 
+                    end
+                else
+                    @coffee = roaster.coffees.build(params[:coffee])
+                end 
+            end
+            
+            @cup = @coffee.cups.build(params[:cup])
+            @cup.user = current_user
+            if @cup.save
+                flash[:message] = "Your cup has been posted!"
+            end
+            redirect "/cups/#{@cup.id}"
+        else
+            redirect '/login'
         end
-        
-        @cup = @coffee.cups.build(params[:cup])
-        @cup.user = current_user
-        @cup.save
-        flash[:message] = "Your cup has been posted!"
-        redirect "/cups/#{@cup.id}"
     end
 
     get '/cups/:id/edit' do
