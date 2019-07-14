@@ -22,9 +22,17 @@ class UsersController < ApplicationController
    end
 
     post '/signup' do
-        user = User.create(params)
+        user = User.new(params)
+
+        if user.save
+            flash[:message] = "You successfully created an account!"
+        else
+            flash[:message] = "That email has already been taken."
+            redirect '/signup'
+        end
+
         login(email: user.email, password: user.password)
-        flash[:account_created] = "You successfully created an account!"
+        
         redirect '/cups'
     end
 
