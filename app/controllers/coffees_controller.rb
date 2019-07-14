@@ -19,26 +19,31 @@ class CoffeesController < ApplicationController
     end
 
     post '/coffees' do
-        if params[:roaster][:name] == ""
-            if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
-                redirect "/coffees/new"
-            end
-            @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
-        else
-            roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
-            if roaster.persisted?
-                if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
-                else
-                    @coffee = roaster.coffees.build(params[:coffee]) 
+        if logged_in?
+            if params[:roaster][:name] == ""
+                if !params[:coffee][:roast] || !params[:coffee][:roaster_id]
+                    redirect "/coffees/new"
                 end
+                @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
             else
-                @coffee = roaster.coffees.build(params[:coffee])
-            end 
-        end
+                roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+                if roaster.persisted?
+                    if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                    else
+                        @coffee = roaster.coffees.build(params[:coffee]) 
+                    end
+                else
+                    @coffee = roaster.coffees.build(params[:coffee])
+                end 
+            end
 
-        @coffee.save
-        flash[:message] = "You successfully posted a new Coffee!"
-        redirect "/coffees/#{@coffee.roaster.slug}/#{@coffee.slug}"
+            if @coffee.save
+                flash[:message] = "You successfully posted a new Coffee!"
+            end
+            redirect "/coffees/#{@coffee.roaster.slug}/#{@coffee.slug}"
+        else 
+            redirect '/login'
+        end
     end
 
     get '/coffees/:roaster/:slug' do 
