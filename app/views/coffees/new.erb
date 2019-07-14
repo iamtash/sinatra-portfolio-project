@@ -19,8 +19,8 @@
   <label>Select the Coffee Roaster:</label>
   <br>
   <% @roasters.each do |roaster| %>
-    <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>"><%=roaster.name%><br></input>
-  <% end %><input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=nil%>">...or post a new Roaster: <input type="text" name="roaster[name]" id="roaster"></input>
+    <input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=roaster.id%>" id="<%=roaster.id%>" required ><%=roaster.name%><br></input>
+  <% end %><input type="radio" name="coffee[roaster_id]" id="roaster" value="<%=nil%>" required >...or post a new Roaster: <input type="text" name="roaster[name]" id="roaster"></input>
 
   <br><br>
 
