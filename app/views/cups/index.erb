@@ -4,7 +4,7 @@
 
 <h1>Coffee Cups</h1>
 <h3>Welcome, <%= current_user.name %>!</h3>
-<h4><a href="/users/<%= current_user.slug %>">You've sipped</a> <%= current_user.cups.size %> cups.</h4>
+<h4><a href="/users/<%= current_user.slug %>">You've sipped</a> <%= current_user.cups.size %> <%= cup_or_cups(current_user.cups.size) %>.</h4>
 
 <% if !@cups.empty? %>
     <ul>

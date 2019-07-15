@@ -45,6 +45,10 @@ class ApplicationController < Sinatra::Base
     def normalize(param)
         param.split(' ').map {|w| w.downcase.capitalize}.join(' ')
     end
+
+    def cup_or_cups(num)
+      num == 1 ? "cup" : "cups"
+    end
 end
 
 end
