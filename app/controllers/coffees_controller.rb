@@ -27,12 +27,11 @@ class CoffeesController < ApplicationController
                 @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
             else
                 roaster = Roaster.find_or_initialize_by(name: normalize(params[:roaster][:name]))
+                @coffee = nil
                 if roaster.persisted?
-                    if @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
-                    else
-                        @coffee = roaster.coffees.build(params[:coffee]) 
-                    end
-                else
+                    @coffee = roaster.coffees.find_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast])
+                end
+                if @coffee.nil?
                     @coffee = roaster.coffees.build(params[:coffee])
                 end 
             end
