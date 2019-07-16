@@ -20,9 +20,6 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    def empty_fields?(params)
-        params.any? {|k,v| v==""}
-    end
 
     def login(email:, password:)
         user = User.find_by(email: email)
