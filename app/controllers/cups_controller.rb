@@ -23,7 +23,7 @@ class CupsController < ApplicationController
     post '/cups' do
         if logged_in?
             if params[:roaster][:name] == ""
-                if !params[:coffee][:roaster_id]
+                if params[:coffee][:roaster_id] == ""
                     redirect "/cups/new"
                 end
                 @coffee = Coffee.find_or_initialize_by(name: normalize(params[:coffee][:name]), roast: params[:coffee][:roast], roaster_id: params[:coffee][:roaster_id]) 
