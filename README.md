@@ -45,3 +45,11 @@ Bug reports and pull requests are welcome, with adherence to the [Code of Conduc
 License
 -------
 The project uses the MIT [License](./LICENSE)
+
+Blog & Video
+---------
+
+[Read about what I learned while building this project!](https://iamtash.github.io/coffee_lovers_only_sip_with_caution)
+
+[Check out a demo of my app!](https://www.youtube.com/watch?v=i1hKCKm6yN0&t=397s)
+
