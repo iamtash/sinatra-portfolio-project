@@ -51,5 +51,8 @@ Blog & Video
 
 [Read about what I learned while building this project!](https://iamtash.github.io/coffee_lovers_only_sip_with_caution)
 
-[Check out a demo of my app!](https://www.youtube.com/watch?v=i1hKCKm6yN0&t=397s)
+Click below to check out a demo!<br>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=i1hKCKm6yN0
+" target="_blank"><img src="http://img.youtube.com/vii1hKCKm6yN0/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
